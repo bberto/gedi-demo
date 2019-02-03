@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: header"></head>
+<body>
+	<nav th:replace="head :: navbar"></nav>
+	
+	<div class="row">
+
+		<div class="col"></div>
+
+		<div class="col-4">
+			<h2>User details</h2>
+			<form>
+				<div class="form-group row">
+					<label class="col-3 col-form-label" for="first">User name</label>
+					<div class="col">
+						<input class="form-control" type="text" name="first"
+							th:value="${user.username}" readonly></input>
+					</div>
+				</div>			
+				<div class="form-group row">
+					<label class="col-3 col-form-label" for="first">First Name</label>
+					<div class="col">
+						<input class="form-control" type="text" name="first"
+							th:value="${user.nome}" readonly></input>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-3 col-form-label" for="last">Last Name</label>
+					<div class="col">
+						<input class="form-control" type="text" name="last"
+							th:value="${user.cognome}" readonly></input>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-3 col-form-label" for="last">Groups</label>
+					<div class="col">
+						<ul th:each="group : ${user.allGroups}">
+							<li th:text="${group}"></li>
+						</ul>
+					</div>
+				</div>				
+			</form>
+		</div>
+
+		<div class="col"></div>
+	</div>
+
+</body>
+</html>

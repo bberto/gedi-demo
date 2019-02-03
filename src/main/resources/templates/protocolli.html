@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: header"></head>
+<body>
+	<nav th:replace="head :: navbar"></nav>
+<form action="#" th:action="@{/protocolli/assign/me}" method="POST">	
+	<div class="row">
+
+		<div class="col"></div>
+
+		<div class="col-6">
+			<h2>
+				Protocolli <span class="badge badge-dark"
+					th:text="${protocolli.size()}"></span>
+			</h2>
+			<table class="table">
+				<thead>
+					<tr>
+						<th></th>
+						<th>id</th>
+						<th>oggetto</th>
+						<th>gruppo</th>
+						<th>owner</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="proto : ${protocolli}">
+						<td><input type="checkbox" name="ids" th:value="${proto.id}"></input></td>
+						<td th:text="${proto.id}"></td>
+						<td th:text="${proto.oggetto}"></td>
+						<td th:text="${proto.group.name}"></td>
+						<td th:text="${proto.owner?.username}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="col-4">
+		
+			<div class="btn-group-vertical btn-group-md" role="group">
+				<button type="button" class="btn btn-outline-primary">Assegna
+					a...</button>
+				<button type="submit" class="btn btn-outline-primary">Assegna
+					a me</button>
+			</div>		
+		</div>
+	</div>
+</form>	
+</body>
+</html>

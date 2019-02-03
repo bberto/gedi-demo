@@ -1,0 +1,12 @@
+spring:
+  jpa:
+    show-sql: true
+    
+  h2.console.enabled: true
+  
+  thymeleaf.cache: false
+  
+logging:
+  file: gedi-demo.log
+  level:
+    "org.hibernate.*": INFO
