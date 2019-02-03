@@ -77,6 +77,17 @@ public class ProtocolloController {
       return it;
     }).forEach(it -> protocolloRepo.save(it));
     protocolloRepo.flush();
-    return new ModelAndView("redirect:/protocolli");
+    return new ModelAndView("redirect:/protocolli/unassigned");
   }
+  
+  @PostMapping("/assign/{username}")
+  public ModelAndView assignToMe(@RequestParam("ids") List<String> selectedIds,
+      String username) {
+    protocolloRepo.findAllById(selectedIds).stream().map(it -> {
+      it.setOwner(userRepo.getOne(username));
+      return it;
+    }).forEach(it -> protocolloRepo.save(it));
+    protocolloRepo.flush();
+    return new ModelAndView("redirect:/protocolli/unassigned");
+  }  
 }
