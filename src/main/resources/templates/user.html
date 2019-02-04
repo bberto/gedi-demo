@@ -7,7 +7,7 @@
 	
 	<div class="row">
 
-		<div class="col"></div>
+		<div class="col-1"></div>
 
 		<div class="col-4">
 			<h2>User details</h2>
@@ -33,17 +33,30 @@
 							th:value="${user.cognome}" readonly></input>
 					</div>
 				</div>
-				<div class="form-group row">
-					<label class="col-3 col-form-label" for="last">Groups</label>
-					<div class="col">
-						<ul th:each="group : ${user.allGroups}">
-							<li th:text="${group}"></li>
-						</ul>
-					</div>
-				</div>				
 			</form>
 		</div>
-
+    <div class="col-4">
+      <h2>&nbsp</h2>
+      <form>
+        <div class="form-group row">
+          <label class="col-3 col-form-label" for="last">Roles</label>
+          <div class="col">
+            <ul th:each="auth : ${#authentication.authorities}">
+              <li th:text="${auth.authority}"></li>
+            </ul>
+          </div>
+        </div>      
+        <div class="form-group row">
+          <label class="col-3 col-form-label" for="last">Groups</label>
+          <div class="col">
+            <ul th:each="group : ${user.allGroups}">
+              <li th:text="${group.name}"></li>
+            </ul>
+          </div>
+        </div>
+      </form>
+    </div>
+    
 		<div class="col"></div>
 	</div>
 

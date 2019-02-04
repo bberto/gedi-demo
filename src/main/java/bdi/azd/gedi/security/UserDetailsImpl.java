@@ -1,10 +1,8 @@
 package bdi.azd.gedi.security;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import bdi.azd.gedi.data.model.User;
 import lombok.Getter;
@@ -18,11 +16,6 @@ import lombok.Setter;
 public class UserDetailsImpl implements UserDetails {
 
   private static final long serialVersionUID = 8969707268098393474L;
-
-  private static final List<GrantedAuthority> AUTHORITIES = new ArrayList<GrantedAuthority>();
-  static {
-    AUTHORITIES.add(new SimpleGrantedAuthority("ROLE_USER"));
-  }
   
   private @NonNull String username;
   private String password = "{noop}pwd";
@@ -31,11 +24,8 @@ public class UserDetailsImpl implements UserDetails {
   private boolean credentialsNonExpired = true;
   private boolean enabled = true;
   
+  private List<GrantedAuthority> authorities = new ArrayList<>();
+  
   private User user;
   
-  @Override
-  public Collection<? extends GrantedAuthority> getAuthorities() {
-    return AUTHORITIES;
-  }
-
 }

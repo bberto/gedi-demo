@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -70,6 +71,7 @@ public class ProtocolloController {
   }
 
   @PostMapping("/assign/me")
+  @PreAuthorize("hasRole('ADDETTO')")
   public ModelAndView assignToMe(@RequestParam("ids") List<String> selectedIds,
       @CurrentUser User user) {
     protocolloRepo.findAllById(selectedIds).stream().map(it -> {
@@ -81,6 +83,7 @@ public class ProtocolloController {
   }
   
   @PostMapping("/assign/{username}")
+  @PreAuthorize("hasRole('ESPERTO')") // include l'ADDETTO. @See RoleHierarchyConfig
   public ModelAndView assignToMe(@RequestParam("ids") List<String> selectedIds,
       String username) {
     protocolloRepo.findAllById(selectedIds).stream().map(it -> {
