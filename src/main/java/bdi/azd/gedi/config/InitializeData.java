@@ -22,14 +22,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class InitializeData {
 
-  @Autowired
-  GroupRepository groupRepo;
+  @Autowired GroupRepository groupRepo;
 
-  @Autowired
-  UserRepository userRepo;
+  @Autowired UserRepository userRepo;
 
-  @Autowired
-  ProtocolloRepository protocolloRepo;
+  @Autowired ProtocolloRepository protocolloRepo;
 
   private Faker faker = Faker.instance(Locale.ITALIAN, new Random(1));
 
@@ -42,8 +39,13 @@ public class InitializeData {
     log.info("Created " + allGroups.size() + " groups");
 
     for (int i = 0; i < 100; i++) {
-      User user = User.builder().cognome(faker.name().firstName()).nome(faker.name().lastName())
-          .username(faker.name().username()).group(randomElement(allGroups)).build();
+      User user =
+          User.builder()
+              .cognome(faker.name().firstName())
+              .nome(faker.name().lastName())
+              .username(faker.name().username())
+              .group(randomElement(allGroups))
+              .build();
       userRepo.save(user);
     }
 
@@ -52,12 +54,16 @@ public class InitializeData {
 
     for (int i = 0; i < 2000; i++) {
       User user = randomElement(allUsers);
-      Protocollo protocollo = Protocollo.builder().id(faker.code().ean13())
-          .owner(faker.random().nextInt(10) < 7 ? user : null).group(user.getGroup())
-          .oggetto(faker.commerce().productName()).stato(StatoProtocollo.NUOVO).build();
+      Protocollo protocollo =
+          Protocollo.builder()
+              .id(faker.code().ean13())
+              .owner(faker.random().nextInt(10) < 7 ? user : null)
+              .group(user.getGroup())
+              .oggetto(faker.commerce().productName())
+              .stato(StatoProtocollo.NUOVO)
+              .build();
       protocolloRepo.save(protocollo);
     }
-
   }
 
   private <T> T randomElement(List<T> list) {
@@ -66,41 +72,47 @@ public class InitializeData {
 
   private List<Group> getGroups() {
     return Arrays.asList(
-        Group.builder().name("SVI")
+        Group.builder()
+            .name("SVI")
             .childs(
                 Arrays.asList(
-                    Group.builder().name("Divisione Intermediari Italiani")
+                    Group.builder()
+                        .name("Divisione Intermediari Italiani")
                         .childs(
                             Arrays.asList(
                                 Group.builder().name("Gruppo 1").build(),
                                 Group.builder().name("Gruppo 2").build(),
                                 Group.builder().name("Gruppo 3").build()))
                         .build(),
-                    Group.builder().name("Divisione Intermediari Esteri")
+                    Group.builder()
+                        .name("Divisione Intermediari Esteri")
                         .childs(
                             Arrays.asList(
                                 Group.builder().name("Gruppo 4").build(),
                                 Group.builder().name("Gruppo 5").build()))
                         .build(),
-                    Group.builder().name("Divisione Altri Intermediari")
+                    Group.builder()
+                        .name("Divisione Altri Intermediari")
                         .childs(
                             Arrays.asList(
                                 Group.builder().name("Gruppo 6").build(),
                                 Group.builder().name("Gruppo 7").build()))
                         .build()))
             .build(),
-
-        Group.builder().name("STC")
+        Group.builder()
+            .name("STC")
             .childs(
                 Arrays.asList(
-                    Group.builder().name("Divisione Vita")
+                    Group.builder()
+                        .name("Divisione Vita")
                         .childs(
                             Arrays.asList(
                                 Group.builder().name("Gruppo 8").build(),
                                 Group.builder().name("Gruppo 9").build(),
                                 Group.builder().name("Gruppo 10").build()))
                         .build(),
-                    Group.builder().name("Divisione RCA")
+                    Group.builder()
+                        .name("Divisione RCA")
                         .childs(
                             Arrays.asList(
                                 Group.builder().name("Gruppo 11").build(),
@@ -109,24 +121,29 @@ public class InitializeData {
                                 Group.builder().name("Gruppo 14").build(),
                                 Group.builder().name("Gruppo 15").build()))
                         .build(),
-                    Group.builder().name("Divisione Infortuni")
+                    Group.builder()
+                        .name("Divisione Infortuni")
                         .childs(
                             Arrays.asList(
                                 Group.builder().name("Gruppo 16").build(),
                                 Group.builder().name("Gruppo 17").build()))
                         .build()))
             .build(),
-
-        Group.builder().name("SGD").childs(
-            Arrays.asList(
-                Group.builder().name("Divisione Dati")
-                    .childs(
-                        Arrays.asList(
-                            Group.builder().name("Gruppo Statistico").build(),
-                            Group.builder().name("Gruppo Analisi").build()))
-                    .build(),
-                Group.builder().name("Divisione Informatica")
-                    .childs(Arrays.asList(Group.builder().name("Gruppo utenti").build())).build()))
+        Group.builder()
+            .name("SGD")
+            .childs(
+                Arrays.asList(
+                    Group.builder()
+                        .name("Divisione Dati")
+                        .childs(
+                            Arrays.asList(
+                                Group.builder().name("Gruppo Statistico").build(),
+                                Group.builder().name("Gruppo Analisi").build()))
+                        .build(),
+                    Group.builder()
+                        .name("Divisione Informatica")
+                        .childs(Arrays.asList(Group.builder().name("Gruppo utenti").build()))
+                        .build()))
             .build());
   }
 }
